@@ -29,7 +29,7 @@ n_test = 200
 
 from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score, KFold
 
-cluster = True
+cluster = False
 if cluster:
     path = '/home/sheczko/ptmp/data/' #global path for cluster
 else:
@@ -85,7 +85,7 @@ Y = cog_metric
 
  #set hyperparameter grid space you want to search through for the model
 #alphas = np.linspace(max(n_feat*0.12 - 1000, 0.0001), n_feat*0.12 + 2000, num = 50, endpoint=True, dtype=None, axis=0) #set the range of alpahs being searhced based off the the amount of features
-alphas = loguniform(10, 10e3)
+alphas = loguniform(10, 10e4)
 n_iter = 200
 
 column_names_pred = []
