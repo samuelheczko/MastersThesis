@@ -39,7 +39,13 @@ CT = 'tangent' #set the correlation type
 
 Feature_selection = True ##set the whether to use the feature selection trick based on the education scores
 
-prop = True ##set the whether to use the feature selection trick based on the education scores
+prop = False ##set the whether to use the feature selection trick based on the education scores
+
+bias_reduct = True #reduce bias ?
+n_loops = 3
+
+
+fit_intercept = True
 
 
 csv_paths  = glob.glob(path + f'/results/connectomes/{CT}_gabys/*.csv')
@@ -78,7 +84,7 @@ train_size = .8
 #set the number of variable you want to predict to be the number of variables stored in the cognition variablse
 n_cog = np.size(cognition)
 #set regression model type
-regr = Ridge(fit_intercept = True, max_iter=1000000)
+regr = Ridge(fit_intercept = fit_intercept, max_iter=1000000)
 #regr = LinearRegression(fit_intercept = True, use_gpu=False, max_iter=1000000,dual=True,penalty='l2')
 #set y to be the cognitive metrics you want to predict. They are the same for every atlas (each subject has behavioural score regradless of parcellation)
 Y = cog_metric
@@ -86,7 +92,7 @@ Y = cog_metric
  #set hyperparameter grid space you want to search through for the model
 #alphas = np.linspace(max(n_feat*0.12 - 1000, 0.0001), n_feat*0.12 + 2000, num = 50, endpoint=True, dtype=None, axis=0) #set the range of alpahs being searhced based off the the amount of features
 alphas = loguniform(10, 10e3)
-n_iter = 200
+n_iter = 50
 
 column_names_pred = []
 column_names_real = []    
@@ -128,8 +134,10 @@ for n_feat in np.array([2250]):
         else:
             n_feat = X.shape[1]
 
+        print(f'n_feat input: {n_feat}')
+
         r2_iq_fMRI_preds, r2_iq_edu_preds, r2_iq_avg_preds, r2_iq_resid_preds, r2_preds_edu, corr_iq_fMRI_preds, corr_iq_edu_preds, corr_iq_avg_preds, corr_iq_resid_preds,corr_preds_edu, n_pred, cogtest, featimp,preds, preds2, preds3,var,opt_alpha = regresson.regression(X = X, Y = Y, perm = perm, cv_loops = cv_loops, k = k, train_size = 0.8, n_cog = n_cog, regr = regr, alphas = alphas,n_feat = n_feat,
-        cognition = cognition, n_iter_search=n_iter,Feature_selection = Feature_selection,manual_folds = True,prop = prop,fold_list = folds_gaby2,n_test = n_test,n_train = n_train,z_score = False,bias_reduct = True,n_loops = 3)
+        cognition = cognition, n_iter_search=n_iter,Feature_selection = Feature_selection,manual_folds = True,prop = prop,fold_list = folds_gaby2,n_test = n_test,n_train = n_train,z_score = False,bias_reduct = bias_reduct,n_loops = n_loops,fit_intercept = fit_intercept)
 
         
               ##save data:
@@ -166,5 +174,5 @@ for n_feat in np.array([2250]):
 
         result_df = pd.concat([result_var,result_r2,result_r2_edu,result_r2_2,result_r2_resid,result_r2_pred_edu,result_corr,result_corr_edu,result_corr_2,result_corr_resid,result_corr_pred_edu,opt_alphas_df],axis = 1)
 
-        result_df.to_csv(path + f'results/ridge_regression/{CT}/gaby_results/ridge_results_yFS_n_feat_{n_feat}_bias_reduct_{CT}_{current_atlas}_fold_size_{n_train}.csv')
-        preds_real_df.to_csv(path + f'results/ridge_regression/{CT}/gaby_results/ridge_preds_yFS_n_feat_{n_feat}_bias_reduct_{CT}_{current_atlas}_fold_size_{n_train}.csv')
+        result_df.to_csv(path + f'results/ridge_regression/{CT}/gaby_results/ridge_results_yFS_n_feat_{n_feat}_bias_reduct_{bias_reduct}_prop_{prop}_{CT}_{current_atlas}_fold_size_{n_train}.csv')
+        preds_real_df.to_csv(path + f'results/ridge_regression/{CT}/gaby_results/ridge_preds_yFS_n_feat_{n_feat}_bias_reduct_{bias_reduct}_prop_{prop}_{CT}_{current_atlas}_fold_size_{n_train}.csv')

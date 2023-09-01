@@ -12,7 +12,7 @@ module add singularity
 
 export SINGULARITY_BIND="/run,/ptmp,/scratch,/tmp,/opt/ohpc,${HOME}"
 
-singularity exec /ptmp/containers/datascience-python_latest.sif  python /home/sheczko/code1/MastersThesis/gabys_tangnet_feat_select_tangent_705_folds_bias_reduct.py
+singularity exec /ptmp/containers/datascience-python_latest.sif  python /home/sheczko/code1/MastersThesis/gabys_tangnet_feat_select_tangent_705_folds_ybias_reduct_nprop.py
 
 
 exit 0
