@@ -33,14 +33,14 @@ else:
 
 CT = 'tangent' #set the correlation type
 
-n_train = 705 ##for manual folds
-n_test = 176
+n_train = 200 ##for manual folds
+n_test = 200
 
 Feature_selection = True ##set the whether to use the feature selection trick based on the education scores
 
 prop = True ##set the whether to use the feature selection trick based on the education scores
 
-bias_reduct = True #reduce bias ?
+bias_reduct = False #reduce bias ?
 if bias_reduct:
     n_loops = 3
 else:
@@ -76,7 +76,7 @@ cognition = ['GCA'] #nanems o fthe cog metrics used
 cog_metric = np.transpose(np.asarray([GCA, edu])) ##the df with the cog ntirics as columns
 print(f'cog metric shape {cog_metric.shape}')
 #set the number of permutations you want to perform
-perm = 100
+perm = 50
 #set the number of cross-validation loops you want to perform
 cv_loops = 5
 #set the number of folds you want in the inner of the nested cross-validation
