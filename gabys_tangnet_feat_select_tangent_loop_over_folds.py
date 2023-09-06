@@ -56,7 +56,7 @@ for n in np.vstack([np.array([25,50,75,100,125,150,175,200]),np.array([75,150,22
     csv_paths  = glob.glob(path + f'/results/connectomes/{CT}_gabys/dict/*.csv')
     print(csv_paths)
 
-    folds_gaby = pd.read_csv(path + f'/manual_folds/folds_{n_train}_{n_test}.txt')
+    folds_gaby = pd.read_csv(path + f'/manual_folds/manual_folds/folds_{n_train}_{n_test}.txt')
     folds_gaby = folds_gaby[~folds_gaby['#----------------------------------------'].str.contains('------------------------------------')]
     folds_gaby2 = folds_gaby[~folds_gaby['#----------------------------------------'].str.contains('set')]
     folds_gaby2 = folds_gaby[~folds_gaby['#----------------------------------------'].str.contains('#')]
