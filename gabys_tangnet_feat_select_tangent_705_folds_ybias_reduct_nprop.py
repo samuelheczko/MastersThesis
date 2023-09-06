@@ -24,12 +24,12 @@ from scipy.stats import uniform
 from scipy.stats import loguniform
 
 
-n_train = 705
-n_test = 176
+n_train = 375
+n_test = 125
 
 from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score, KFold
 
-cluster = True
+cluster = False
 if cluster:
     path = '/home/sheczko/ptmp/data/' #global path for cluster
 else:
@@ -51,9 +51,11 @@ fit_intercept = True
 csv_paths  = glob.glob(path + f'/results/connectomes/{CT}_gabys/*.csv')
 print(csv_paths)
 
-folds_gaby = pd.read_csv(path + f'/manual_folds/folds_{n_train}_{n_test}.txt')
+folds_gaby = pd.read_csv(path + f'/manual_folds/new/folds_{n_train}_{n_test}.txt')
 folds_gaby = folds_gaby[~folds_gaby['#----------------------------------------'].str.contains('------------------------------------')]
 folds_gaby2 = folds_gaby[~folds_gaby['#----------------------------------------'].str.contains('set')]
+folds_gaby2 = folds_gaby[~folds_gaby['#----------------------------------------'].str.contains('#')]
+
 
 
 
