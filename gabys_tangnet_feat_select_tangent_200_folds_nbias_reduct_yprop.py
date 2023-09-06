@@ -40,7 +40,7 @@ Feature_selection = True ##set the whether to use the feature selection trick ba
 
 prop = True ##set the whether to use the feature selection trick based on the education scores
 
-bias_reduct = False #reduce bias ?
+bias_reduct = False #reduce bias ? do thre predicions with randomly including data from train set edu
 if bias_reduct:
     n_loops = 3
 else:
@@ -76,7 +76,7 @@ cognition = ['GCA'] #nanems o fthe cog metrics used
 cog_metric = np.transpose(np.asarray([GCA, edu])) ##the df with the cog ntirics as columns
 print(f'cog metric shape {cog_metric.shape}')
 #set the number of permutations you want to perform
-perm = 50
+perm = 100
 #set the number of cross-validation loops you want to perform
 cv_loops = 5
 #set the number of folds you want in the inner of the nested cross-validation

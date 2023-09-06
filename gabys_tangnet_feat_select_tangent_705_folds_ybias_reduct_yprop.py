@@ -25,7 +25,7 @@ from scipy.stats import loguniform
 
 from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score, KFold
 
-cluster = True
+cluster = False
 if cluster:
     path = '/home/sheczko/ptmp/data/' #global path for cluster
 else:
@@ -56,7 +56,7 @@ print(csv_paths)
 folds_gaby = pd.read_csv(path + f'/manual_folds/folds_{n_train}_{n_test}.txt')
 folds_gaby = folds_gaby[~folds_gaby['#----------------------------------------'].str.contains('------------------------------------')]
 folds_gaby2 = folds_gaby[~folds_gaby['#----------------------------------------'].str.contains('set')]
-
+print(folds_gaby2)
 
 
 

@@ -237,13 +237,13 @@ def regression(X, Y, perm, cv_loops, k, train_size, n_cog, regr, alphas,n_feat,c
 
                 #w_prod_norm[w_prod_norm > 0].shape
                 if prop:
-                    n_feat_new = int(len(w_cog)/2)
+                    n_feat_new = int(X.shape[1]/2)
                 else:
                     n_feat_new = n_feat
                 
                 print (f'feature amount: {n_feat_new}')
                 h_idx = np.argpartition(w_prod_norm,-n_feat_new)[-n_feat_new:]
-                print(f'h_idx = {h_idx}')
+                #print(f'h_idx = {h_idx}')
                 #not_zero = np.nonzero(w_prod)[0]
                 #print(f'not_zero {not_zero}')
 
